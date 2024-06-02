@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_app"
+    android:theme="@style/Theme.AppCompat.Light"
+    tools:context=".fragment.BookFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/bookNama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Library Hadith"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                />
+        </LinearLayout>
+
+        <!--    <include-->
+        <!--        android:layout_gravity="top"-->
+        <!--        layout="@layout/app_bar"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content" />-->
+
+        <!-- TODO: Update blank fragment layout -->
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_chapter"
+            android:background="@drawable/rounded_corners_top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:itemCount="10"
+            tools:listitem="@layout/chapter_item" />
+    </LinearLayout>
+
+    <!--    <include-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="bottom"-->
+    <!--        layout="@layout/bottom_nav" />-->
+
+</FrameLayout>

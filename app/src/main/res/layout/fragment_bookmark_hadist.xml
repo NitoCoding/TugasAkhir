@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_app"
+    tools:context=".fragment.BookmarkHadithFragment">
+
+<!--    &lt;!&ndash; AppBar &ndash;&gt;-->
+<!--    <include layout="@layout/app_bar"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_width="match_parent"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Library Hadith"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='"Akses mudah ke ilmu agama. Hadist Library menyediakan kemudahan bagi Anda untuk mempelajari hadist dengan fitur pencarian dan kategorisasi yang memudahkan."'
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+
+        <!--    <include-->
+        <!--        android:layout_gravity="top"-->
+        <!--        layout="@layout/app_bar"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content" />-->
+
+        <!-- TODO: Update blank fragment layout -->
+
+
+        <LinearLayout
+            android:background="@drawable/rounded_corners_top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="10dp"
+
+            >
+            <!-- Tampilkan data bookmark yang dipilih -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/hadithNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="1" />
+
+                <ImageButton
+                    android:id="@+id/logoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/mark_selector"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:layout_margin="10dp"
+                    android:maxWidth="50dp"
+                    android:maxHeight="50dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/arabicHadith"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="16sp"
+                    android:text="Revelation"
+                    android:gravity="start"/>
+                <TextView
+                    android:id="@+id/englishHadith"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Revelation"
+                    android:gravity="start"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

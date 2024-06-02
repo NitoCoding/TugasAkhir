@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_app"
+    tools:context=".fragment.BookFragment">
+
+
+<!--    <include layout="@layout/app_bar" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Library Hadith"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='"Akses mudah ke ilmu agama. Hadist Library menyediakan kemudahan bagi Anda untuk mempelajari hadist dengan fitur pencarian dan kategorisasi yang memudahkan."'
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+
+<!--    <include-->
+<!--        android:layout_gravity="top"-->
+<!--        layout="@layout/app_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_book"
+            android:background="@drawable/rounded_corners_top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:itemCount="10"
+            tools:listitem="@layout/book_item"
+            />
+    </LinearLayout>
+
+<!--    <include-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        layout="@layout/bottom_nav" />-->
+
+</FrameLayout>

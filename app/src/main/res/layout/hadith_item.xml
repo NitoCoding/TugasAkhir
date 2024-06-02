@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/hadith_item_border">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/hadithNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="1" />
+
+        <ImageButton
+            android:id="@+id/logoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mark_selector"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:layout_margin="10dp"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/arabicHadith"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textSize="16sp"
+            android:text="Revelation"
+            android:gravity="start"/>
+        <TextView
+            android:id="@+id/englishHadith"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Revelation"
+            android:gravity="start"/>
+    </LinearLayout>
+</LinearLayout>
