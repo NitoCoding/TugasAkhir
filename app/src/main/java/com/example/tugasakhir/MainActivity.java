@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setTheme(com.google.android.material.R.style.Base_Theme_AppCompat_Light);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().hide();
+
         homeFragment = new BookFragment();
         markFragment = new MarkFragment();
 
