@@ -21,16 +21,18 @@
             android:textSize="16sp"
             android:text="1" />
 
-        <ImageButton
+        <ToggleButton
             android:id="@+id/logoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/mark_selector"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/toggle_button_state"
             android:padding="10dp"
             android:scaleType="fitCenter"
-            android:layout_margin="10dp"
-            android:maxWidth="50dp"
-            android:maxHeight="50dp" />
+            android:textOff=""
+            android:textOn=""
+
+            />
+
     </LinearLayout>
 
     <LinearLayout

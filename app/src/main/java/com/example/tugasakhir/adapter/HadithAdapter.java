@@ -5,8 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.tugasakhir.R;
@@ -45,28 +48,23 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.HadithView
 
         boolean isBookmark = db.checkIfBookmark(hadith.getId());
 
-        if(isBookmark){
-            holder.bookmarkBtn.setImageResource(R.drawable.baseline_bookmark_24_active);
-        }else {
-            holder.bookmarkBtn.setImageResource(R.drawable.baseline_bookmark_border_24_inactive);
-        }
 
-        holder.bookmarkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isBookmark) {
 
-                    db.deleteBookmark(hadith.getId());
-                    holder.bookmarkBtn.setImageResource(R.drawable.baseline_bookmark_border_24_inactive);
-                } else {
-                    Log.d("test", hadith.getHadithNumber());
-                    Log.d("test", String.valueOf(hadith.getId()));
-                    db.addBookmark(hadith.getId(),Integer.parseInt(hadith.getHadithNumber()), hadith.getBook().getBookName(), hadith.getHadithArabic(), hadith.getChapter().getChapterEnglish(), hadith.getHadithEnglish());
-                    holder.bookmarkBtn.setImageResource(R.drawable.baseline_bookmark_24_active);
-                }
+        holder.bookmarkBtn.setChecked(isBookmark);
+        Log.d("chci", String.valueOf(isBookmark));
 
-                notifyDataSetChanged();
+
+
+
+
+        holder.bookmarkBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isChecked) {
+                db.deleteBookmark(hadith.getId());
+                Log.d("chc", "true");
+            } else {
+                db.addBookmark(hadith.getId(),Integer.parseInt(hadith.getHadithNumber()), hadith.getBook().getBookName(), hadith.getHadithArabic(), hadith.getChapter().getChapterEnglish(), hadith.getHadithEnglish());
             }
+//            notifyDataSetChanged();
         });
     }
 
@@ -77,7 +75,7 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.HadithView
 
     public static class HadithViewHolder extends RecyclerView.ViewHolder {
         public TextView hadithNumber, arabicHadith, englishHadith;
-        public ImageView bookmarkBtn;
+        public ToggleButton bookmarkBtn;
 
         public HadithViewHolder(View view) {
             super(view);

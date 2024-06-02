@@ -6,11 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.tugasakhir.R;
 import com.example.tugasakhir.api.HadithApiClient;
@@ -34,14 +37,16 @@ public class BookmarkHadithFragment extends Fragment {
 
 
 
-    public TextView hadithNumber, arabicHadith, englishHadith;
-    public ImageView bookmarkBtn;
+    public TextView hadithNumber, arabicHadith, englishHadith,book_name,chapter_name;
+    public ToggleButton bookmarkBtn;
 
     DbHelper db;
 
     HadithApiService api;
 
     ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+    Bookmark bkm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +59,7 @@ public class BookmarkHadithFragment extends Fragment {
             ID = bundle.getString("id");
             // Do something with the bookSlug
 //            Log.d("ChapterFragment", "Received bookSlug: " + bookSlug);
+            Log.d("idasdsads", ID);
         }
         return inflater.inflate(R.layout.fragment_bookmark_hadist, container, false);
     }
@@ -73,26 +79,57 @@ public class BookmarkHadithFragment extends Fragment {
         arabicHadith = view.findViewById(R.id.arabicHadith);
         englishHadith = view.findViewById(R.id.englishHadith);
         bookmarkBtn = view.findViewById(R.id.logoButton);
+        book_name = view.findViewById(R.id.bookNama);
+
+
+        chapter_name = view.findViewById(R.id.chapterNama);
+
+        bookmarkBtn.setChecked(true);
 
         db = new DbHelper(getContext());
 
 
 
 
-
+        bookmarkBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isChecked) {
+                db.deleteBookmark(bkm.getHadithId());
+            } else {
+                db.addBookmark(bkm.getHadithId(),
+                        bkm.getHadithNumber(),
+                        bkm.getBookName(),
+                        bkm.getHadithArabic(),
+                        bkm.getChapterName(),
+                        bkm.getHadithEnglish());
+            }
+            // Menghindari pemanggilan notifyDataSetChanged() di dalam holder RecyclerView
+        });
 
 
 
         loadData();
+
+
     }
 
     private void loadData() {
-        Bookmark bkm = db.getBookmarkById(Integer.parseInt(ID));
 
-        hadithNumber.setText(bkm.getHadithNumber());
-        arabicHadith.setText(bkm.getHadithArabic());
-        englishHadith.setText(bkm.getHadithEnglish());
-        bookmarkBtn.setImageResource(R.drawable.baseline_bookmark_24_active);
+
+
+
+        executorService.execute(() -> {
+            bkm = db.getBookmarkById(Integer.parseInt(ID));
+            Log.d("loadData: '", bkm.toString());
+
+            // Memperbarui adapter di thread UI
+            getActivity().runOnUiThread(() -> {
+                hadithNumber.setText(String.valueOf(bkm.getHadithNumber()));
+                arabicHadith.setText(bkm.getHadithArabic());
+                englishHadith.setText(bkm.getHadithEnglish());
+                book_name.setText(bkm.getBookName());
+                chapter_name.setText(bkm.getChapterName());
+            });
+        });
 
     }
 }

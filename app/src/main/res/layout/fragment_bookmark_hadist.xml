@@ -6,11 +6,6 @@
     android:background="@drawable/background_app"
     tools:context=".fragment.BookmarkHadithFragment">
 
-<!--    &lt;!&ndash; AppBar &ndash;&gt;-->
-<!--    <include layout="@layout/app_bar"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_width="match_parent"/>-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,21 +19,23 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/bookNama"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Library Hadith"
                 android:textColor="@color/white"
                 android:textSize="30sp"
-                android:gravity="center"
-                android:layout_gravity="center" />
-
+                android:layout_marginBottom="5dp"
+                />
             <TextView
+                android:id="@+id/chapterNama"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='"Akses mudah ke ilmu agama. Hadist Library menyediakan kemudahan bagi Anda untuk mempelajari hadist dengan fitur pencarian dan kategorisasi yang memudahkan."'
+                android:text="Library Hadith"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:layout_marginTop="20dp" />
+                android:textSize="24sp"
+                />
+
         </LinearLayout>
 
         <!--    <include-->
@@ -75,16 +72,17 @@
                     android:textSize="16sp"
                     android:text="1" />
 
-                <ImageButton
+                <ToggleButton
                     android:id="@+id/logoButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/mark_selector"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/toggle_button_state"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
-                    android:layout_margin="10dp"
-                    android:maxWidth="50dp"
-                    android:maxHeight="50dp" />
+                    android:textOff=""
+                    android:textOn=""
+
+                    />
             </LinearLayout>
 
             <LinearLayout

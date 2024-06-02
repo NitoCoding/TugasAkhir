@@ -1,12 +1,14 @@
 package com.example.tugasakhir.response;
 
 import com.example.tugasakhir.models.Hadith;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class HadithResponse {
     private int currentPage;
     private List<Hadith> data;
+    @SerializedName("next_page_url")
     private String nextPageUrl;
     private String previousPageUrl;
     private int perPage;

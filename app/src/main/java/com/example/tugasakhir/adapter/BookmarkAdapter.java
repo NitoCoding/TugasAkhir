@@ -39,7 +39,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
     public void onBindViewHolder(@NonNull BookmarkViewHolder holder, int position) {
         Bookmark bookmark = bookmarkList.get(position);
         holder.bookmarkNumber.setText(String.valueOf(position + 1));
-        String bookmarkText = bookmark.getBookName() + " | " + bookmark.getChapterName() + " : " + bookmark.getHadithNumber();
+        String bookmarkText = bookmark.getBookName() + " | " + bookmark.getChapterName() + " : " + bookmark.getHadithId();
         holder.bookmarkText.setText(bookmarkText);
 
         holder.itemView.setOnClickListener(v->{

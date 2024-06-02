@@ -6,14 +6,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.tugasakhir.models.Bookmark;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class DbHelper extends SQLiteOpenHelper {
 
@@ -60,7 +58,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     // Metode untuk menambahkan data bookmark baru
-    public long addBookmark(int hadithId,int hadithNumber, String bookName, String hadithArabic, String chapterEnglish, String hadithEnglish) {
+    public void addBookmark(int hadithId, int hadithNumber, String bookName, String hadithArabic, String chapterEnglish, String hadithEnglish) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_HADITH_ID, hadithId);
@@ -70,8 +68,9 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_CHAPTER_ENGLISH, chapterEnglish);
         values.put(COLUMN_HADITH_ENGLISH, hadithEnglish);
         long id = db.insert(TABLE_BOOKMARK, null, values);
+
+        Log.d("db",String.valueOf(id));
         db.close();
-        return id;
     }
 
     // Metode untuk menghapus data bookmark berdasarkan ID hadith
@@ -103,7 +102,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return bookmarks;
     }
 
-    public Bookmark getBookmarkById(int hadithId) {
+    public Bookmark getBookmarkByHadithId(int hadithId) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_ID, COLUMN_HADITH_ID,COLUMN_HADITH_NUMBER, COLUMN_BOOK_NAME, COLUMN_HADITH_ARABIC, COLUMN_CHAPTER_ENGLISH, COLUMN_HADITH_ENGLISH};
         String selection = COLUMN_HADITH_ID + " = ?";
@@ -120,6 +119,30 @@ public class DbHelper extends SQLiteOpenHelper {
             String chapterName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HADITH_ENGLISH));
             bookmark = new Bookmark(id, bookmarkHadithId,bookmarkHadithNumber, bookName, bookSlug, chapterNumber, chapterName);
         }
+        cursor.close();
+        db.close();
+        return bookmark;
+    }
+
+    public Bookmark getBookmarkById(int cid) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ID, COLUMN_HADITH_ID,COLUMN_HADITH_NUMBER, COLUMN_BOOK_NAME, COLUMN_HADITH_ARABIC, COLUMN_CHAPTER_ENGLISH, COLUMN_HADITH_ENGLISH};
+        String selection = COLUMN_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(cid)};
+        Cursor cursor = db.query(TABLE_BOOKMARK, columns, selection, selectionArgs, null, null, null);
+        Log.d("qwe", String.valueOf(cursor.getCount()));
+        Bookmark bookmark = null;
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
+            int bookmarkHadithId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_HADITH_ID));
+            int bookmarkHadithNumber = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_HADITH_NUMBER));
+            String bookName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_BOOK_NAME));
+            String bookSlug = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HADITH_ARABIC));
+            String chapterNumber = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CHAPTER_ENGLISH));
+            String chapterName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HADITH_ENGLISH));
+            bookmark = new Bookmark(id, bookmarkHadithId,bookmarkHadithNumber, bookName, bookSlug, chapterNumber, chapterName);
+        }
+        Log.d("qwe", String.valueOf(bookmark.getHadithNumber()));
         cursor.close();
         db.close();
         return bookmark;

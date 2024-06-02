@@ -51,9 +51,6 @@ public class BookFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        AppCompatActivity activity = (AppCompatActivity) getActivity();
-//        Toolbar toolbar = view.findViewById(R.id.toolbar);
-//        toolbar.setTitle("");
 
         rv = view.findViewById(R.id.rv_book);
         api = HadithApiClient.getClient().create(HadithApiService.class);

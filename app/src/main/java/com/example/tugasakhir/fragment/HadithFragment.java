@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tugasakhir.R;
 import com.example.tugasakhir.adapter.BookAdapter;
@@ -29,6 +31,7 @@ import com.example.tugasakhir.models.Hadith;
 import com.example.tugasakhir.response.BookResponse;
 import com.example.tugasakhir.response.HadithPageResponse;
 import com.example.tugasakhir.response.HadithResponse;
+import com.example.tugasakhir.utils.EndlessRecyclerViewScrollListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -50,7 +53,8 @@ public class HadithFragment extends Fragment {
     String CHAPTER_NUMBER = "chapterArabic";
     int PAGINATE = 10;
     int PAGE = 1;
-    boolean hasNext = false;
+    boolean hasNext = true;
+    boolean isLoading = false;
 
     HadithApiService api;
     RecyclerView rv;
@@ -58,6 +62,7 @@ public class HadithFragment extends Fragment {
     List<Hadith> hadiths = new ArrayList<>();
     ExecutorService executorService = Executors.newSingleThreadExecutor();
 
+    TextView book_name,chapter_name;
     DbHelper db ;
 
     @Override
@@ -86,6 +91,12 @@ public class HadithFragment extends Fragment {
 //        Toolbar toolbar = view.findViewById(R.id.toolbar);
 //        toolbar.setTitle(BOOK_NAME + "|" + CHAPTER_ENGLISH);
 
+        book_name = view.findViewById(R.id.bookNama);
+        book_name.setText(BOOK_NAME);
+
+        chapter_name = view.findViewById(R.id.chapterNama);
+        chapter_name.setText(CHAPTER_ENGLISH);
+
         rv = view.findViewById(R.id.rv_hadith);
         api = HadithApiClient.getClient().create(HadithApiService.class);
 
@@ -95,6 +106,13 @@ public class HadithFragment extends Fragment {
         adapter = new HadithAdapter(getContext(), hadiths,db);
         rv.setAdapter(adapter);
 
+        rv.addOnScrollListener(new EndlessRecyclerViewScrollListener((LinearLayoutManager) rv.getLayoutManager()) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadMoreData(page);
+            }
+        });
+
 
 
 
@@ -102,6 +120,10 @@ public class HadithFragment extends Fragment {
     }
 
     private void loadData() {
+
+        if (isLoading) return;
+        isLoading = true;
+
         executorService.execute(() -> {
             Call<HadithPageResponse> call = api.getHadiths(API_KEY,BOOK_SLUG,CHAPTER_NUMBER,PAGINATE,PAGE);
             call.enqueue(new Callback<HadithPageResponse>() {
@@ -110,17 +132,48 @@ public class HadithFragment extends Fragment {
                     if (response.isSuccessful() && response.body() != null) {
                         hadiths.clear();
                         hadiths.addAll(response.body().getHadiths().getData());
-                        for (Hadith hadith : hadiths) {
-                            Log.d("Hadith", "Id: " + hadith.getId());
-                            Log.d("Hadith", "num: " + hadith.getHadithNumber());
-                        }
 
+                        hasNext = response.body().getHadiths().getNextPageUrl() != null;
+                        Log.d("qwe", String.valueOf(hasNext));
                         getActivity().runOnUiThread(() -> adapter.notifyDataSetChanged());
                     }
+                    isLoading = false;
                 }
 
                 @Override
                 public void onFailure(Call<HadithPageResponse> call, Throwable t) {
+                    // Handle API call failure
+                }
+            });
+        });
+    }
+
+    private void loadMoreData(int page) {
+        if (!hasNext) {
+            getActivity().runOnUiThread(() ->
+                    Toast.makeText(getContext(), "No more data available", Toast.LENGTH_SHORT).show()
+            );
+            return;
+        }
+        if (isLoading) return;
+        isLoading = true;
+
+        executorService.execute(() -> {
+            Call<HadithPageResponse> call = api.getHadiths(API_KEY, BOOK_SLUG, CHAPTER_NUMBER, PAGINATE, page);
+            call.enqueue(new Callback<HadithPageResponse>() {
+                @Override
+                public void onResponse(Call<HadithPageResponse> call, Response<HadithPageResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        hadiths.addAll(response.body().getHadiths().getData());
+                        hasNext = response.body().getHadiths().getNextPageUrl() != null;
+                        getActivity().runOnUiThread(() -> adapter.notifyDataSetChanged());
+                    }
+                    isLoading = false;
+                }
+
+                @Override
+                public void onFailure(Call<HadithPageResponse> call, Throwable t) {
+                    isLoading = false;
                     // Handle API call failure
                 }
             });
