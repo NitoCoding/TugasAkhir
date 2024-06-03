@@ -7,8 +7,7 @@ Hadith Reader App is an application for reading hadiths from various books onlin
 - **Read Hadiths Online**: Access hadiths from various book sources online through the HadithAPI service.
 - **Add to Bookmark**: Mark favorite hadiths to be saved offline and accessed anytime.
 - **Remove from Bookmark**: Delete hadiths from the bookmark list if no longer needed.
-- **Search**: Search hadiths by keyword or category to find specific hadiths.
-- **Settings**: User preference customization, such as language settings or display preferences.
+
 
 ## Technologies Used
 
