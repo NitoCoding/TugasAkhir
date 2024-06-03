@@ -34,8 +34,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='"Akses mudah ke ilmu agama. Hadist Library menyediakan kemudahan bagi Anda untuk mempelajari hadist dengan fitur pencarian dan kategorisasi yang memudahkan."'
+                android:text="Easy Access to Religious Knowledge. Hadith Library provides convenience for you to study Hadiths with search and categorization features that make it easier."
                 android:textColor="@color/white"
+                android:gravity="center"
                 android:textSize="14sp"
                 android:layout_marginTop="20dp" />
         </LinearLayout>
